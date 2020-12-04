@@ -6,7 +6,7 @@ namespace Bodoconsult.Core.Web.Mail
     /// <summary>
     /// meta data for an image file in a HTML document
     /// </summary>
-    public class ImageMetaData
+    public sealed class ImageMetaData
     {
         private string _url;
 

@@ -10,7 +10,7 @@ namespace Bodoconsult.Core.Web.Mail
     /// <summary>
     /// Send a mail to a lot of receivers
     /// </summary>
-    public class MassSmtpMailer: BaseMailer
+    public sealed class MassSmtpMailer: BaseMailer
     {
 
 

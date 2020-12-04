@@ -5,7 +5,7 @@ using Bodoconsult.Core.Web.Mail.Model;
 
 namespace Bodoconsult.Core.Web.Mail
 {
-    public class MassMailHandler
+    public sealed class MassMailHandler
     {
 
         public MassMailHandler(MailAccount currentMailAccount)

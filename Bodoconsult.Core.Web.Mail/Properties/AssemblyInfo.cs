@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("Bodoconsult.Core.Web.Mail")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Bodoconsult.Core.Web.Mail library is intended for apps which have to send (but not receive) SMTP mails like console apps")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bodoconsult EDV-Dienstleistungen GmbH")]
 [assembly: AssemblyProduct("Bodoconsult.Core.Web.Mail")]

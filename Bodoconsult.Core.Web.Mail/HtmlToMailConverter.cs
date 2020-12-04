@@ -14,7 +14,7 @@ namespace Bodoconsult.Core.Web.Mail
     /// Converts a HTML page to a body of a mail
     /// </summary>
     [SuppressMessage("ReSharper", "NotResolvedInText")]
-    public class HtmlToMailConverter
+    public sealed class HtmlToMailConverter
     {
         /// <summary>
         /// standard CTOR

@@ -10,7 +10,7 @@ namespace Bodoconsult.Core.Web.Mail
     /// <summary>
     /// Send an email via SMTP unsecured or via SSL secured
     /// </summary>
-    public class SmtpMailer: BaseMailer
+    public sealed class SmtpMailer: BaseMailer
     {
 
 
@@ -38,7 +38,7 @@ namespace Bodoconsult.Core.Web.Mail
                 _smtpClient = new SmtpClient(CurrentMailAccount.SmtpServer)
                 {
                    Credentials = CredentialCache.DefaultNetworkCredentials,
-                    DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
                 EnableSsl = CurrentMailAccount.UseSecureConnection,
                     
                 };
@@ -125,5 +125,9 @@ namespace Bodoconsult.Core.Web.Mail
                 // ignored
             }
         }
+
+
+
+
     }
 }

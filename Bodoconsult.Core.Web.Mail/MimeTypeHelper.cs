@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bodoconsult.Core.Web.Mail
 {
-    public class MimeTypeHelper
+    public static class MimeTypeHelper
     {
 
         private static readonly IDictionary<string, string> Mappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {

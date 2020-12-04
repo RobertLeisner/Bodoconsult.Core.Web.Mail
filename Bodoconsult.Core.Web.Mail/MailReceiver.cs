@@ -3,7 +3,7 @@
     /// <summary>
     /// Class with mail receiver data
     /// </summary>
-    public class MailReceiver
+    public sealed class MailReceiver
     {
         /// <summary>
         /// Email address for the mail receiver

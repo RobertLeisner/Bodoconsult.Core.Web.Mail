@@ -4,7 +4,7 @@
     /// <summary>
     /// Contains config data for Excel import
     /// </summary>
-    public class ExcelFileConfig
+    public sealed class ExcelFileConfig
     {
 
         public ExcelFileConfig()

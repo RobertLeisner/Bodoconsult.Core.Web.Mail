@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains mail config for sending
     /// </summary>
-    public class MailAccount
+    public sealed class MailAccount
     {
         private string _accountName;
 

@@ -9,7 +9,7 @@ namespace Bodoconsult.Core.Web.Mail.Test.Helpers
     /// <summary>
     /// Helper class to handle JSON strings and files
     /// </summary>
-    public class JsonHelper
+    public static class JsonHelper
     {
         /// <summary>
         /// Load a object from a JSON file
