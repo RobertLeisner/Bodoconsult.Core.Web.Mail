@@ -7,25 +7,17 @@
     <RepositoryUrl>https://github.com/RobertLeisner/Bodoconsult.Core.Web.Mail</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Bodoconsult.Core.Web.Mail</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.0</Version>
     <Authors>Robert Leisner</Authors>
     <Company>Bodoconsult EDV-Dienstleistungen GmbH</Company>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>SMTP Office365 Graph mail send</PackageTags>
-	  <PackageReleaseNotes>Updated dependencies and added README.md</PackageReleaseNotes>
+    <PackageTags>SMTP mail send</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Bodoconsult.Core.Web.Mail library is intended for apps which have to send (but not to receive) mails via SMTP or Office 365 (via Graph) like console apps</Description>
-	<NeutralLanguage>en</NeutralLanguage>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Bodoconsult.Core.Web.Mail library is intended for apps which have to send (but not receive) SMTP mails like console apps</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Graph" Version="4.49.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\LICENSE.md" Link="LICENSE.md" />
-		<None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
 
 </Project>

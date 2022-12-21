@@ -1,7 +1,4 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-
-using System;
+﻿using System;
 using Bodoconsult.Core.Web.Mail.Model;
 
 namespace Bodoconsult.Core.Web.Mail

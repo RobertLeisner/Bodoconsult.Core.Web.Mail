@@ -1,7 +1,4 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;

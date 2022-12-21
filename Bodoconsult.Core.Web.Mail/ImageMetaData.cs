@@ -1,7 +1,4 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-
-using System;
+﻿using System;
 using System.IO;
 
 namespace Bodoconsult.Core.Web.Mail
@@ -31,34 +28,16 @@ namespace Bodoconsult.Core.Web.Mail
         /// </summary>
         public string Url
         {
-            get => _url;
+            get { return _url; }
             set
             {
                 var f = new FileInfo(value);
                 Extension = f.Extension;
-                Name = f.Name;
-                ContentBytes = File.ReadAllBytes(value);
-
-                switch (Extension.ToLowerInvariant())
-                {
-                    case ".jpeg":
-                    case ".jpg":
-                        MimeType = "image/jpeg";
-                        break;
-                    case ".png":
-                        MimeType = "image/png";
-                        break;
-                    default:
-                        MimeType = "";
-                        break;
-                }
 
                 Length = value.Length;
                 _url = value;
             }
         }
-
-        public string Name { get; set; }
 
         /// <summary>
         /// File ia local filesystem file (true/false) or otherwise file in the Internet
@@ -80,15 +59,5 @@ namespace Bodoconsult.Core.Web.Mail
         /// The image file's extension
         /// </summary>
         public string Extension { get; private set; }
-
-        /// <summary>
-        /// Content as byte array
-        /// </summary>
-        public byte[] ContentBytes { get; private set; }
-
-        /// <summary>
-        /// Mime type of the image
-        /// </summary>
-        public string MimeType { get; set; }
     }
 }

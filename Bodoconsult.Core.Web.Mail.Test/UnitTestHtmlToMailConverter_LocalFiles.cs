@@ -1,14 +1,9 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using Bodoconsult.Core.Web.Mail.Model;
 using Bodoconsult.Core.Web.Mail.Test.Helpers;
-using Microsoft.Graph;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NUnit.Framework;
 
 namespace Bodoconsult.Core.Web.Mail.Test
@@ -29,8 +24,8 @@ namespace Bodoconsult.Core.Web.Mail.Test
         public UnitTestHtmlToMailConverter_LocalFiles()
         {
             //_appPath = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", "");
-            _baseUrl = Path.Combine(TestHelper.TestDataPath, @"HtmlLocalData\");
-            _docUrl = Path.Combine(TestHelper.TestDataPath, @"HtmlLocalData\Sample.txt");
+            _baseUrl = Path.Combine(TestHelper.TestDataPath, @"TestData\HtmlLocalData\");
+            _docUrl = Path.Combine(TestHelper.TestDataPath, @"TestData\HtmlLocalData\Sample.txt");
         }
 
 
@@ -56,10 +51,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
         public void TestLoadDocument()
         {
             // Arrange
-            var c = new HtmlToMailConverter
-            {
-                DocUrl = _docUrl
-            };
+            var c = new HtmlToMailConverter {DocUrl = _docUrl};
 
             // Act
             c.LoadDocument();
@@ -75,10 +67,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
         public void TestFindImages()
         {
             // Arrange
-            var c = new HtmlToMailConverter
-            {
-                DocUrl = _docUrl
-            };
+            var c = new HtmlToMailConverter { DocUrl = _docUrl };
             c.LoadDocument();
 
             // Act
@@ -96,10 +85,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
         public void TestGetLinkedRessources()
         {
             // Arrange
-            var c = new HtmlToMailConverter
-            {
-                DocUrl = _docUrl
-            };
+            var c = new HtmlToMailConverter { DocUrl = _docUrl };
             c.LoadDocument();
             c.FindImages();
 
@@ -119,10 +105,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
         public void TestProcessContent()
         {
             // Arrange
-            var c = new HtmlToMailConverter
-            {
-                DocUrl = _docUrl
-            };
+            var c = new HtmlToMailConverter { DocUrl = _docUrl };
             c.LoadDocument();
             c.FindImages();
             c.GetLinkedRessources();
@@ -143,7 +126,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
 
 
         [Test]
-        public void TestSaveToMailSmtp()
+        public void TestSaveToMail()
         {
             // Arrange
             var msg = new MailMessage {From = new MailAddress("noreply@bodoconsult.de")};
@@ -179,49 +162,7 @@ namespace Bodoconsult.Core.Web.Mail.Test
             Assert.IsTrue(msg.AlternateViews.Count>0);
             Assert.IsTrue(msg.AlternateViews[0].LinkedResources.Count>0);
         }
-
-        [Test]
-        public void TestSaveToMailO365()
-        {
-            // Arrange
-            const string to = "robert.leisner@bodoconsult.de";
-
-            var msg = new Microsoft.Graph.Message( );
-
-            var receips = to.Split(new[] { ';' }).Select(receiver => new Recipient { EmailAddress = new EmailAddress { Address = receiver } }).ToList();
-
-            msg.ToRecipients = receips;
-            msg.Subject = $"Testmail {DateTime.Now:s}";
-
-            var c = new HtmlToMailConverter { DocUrl = _docUrl };
-            c.LoadDocument();
-            c.FindImages();
-            //c.GetLinkedRessources();
-            c.ProcessContent();
-
-            var account = TestHelper.GetTestO365Account();
-
-            // Act
-            c.SaveToMail(ref msg);
-
-
-            var smtp = new O365Mailer(account);
-
-            smtp.Login();
-            smtp.SendMail(msg);
-            //smtp.Dispose();
-
-            // Assert
-            Assert.IsFalse(string.IsNullOrEmpty(c.Content));
-            Assert.IsTrue(c.LocalFile);
-            Assert.IsTrue(c.Images.Count > 0);
-            Assert.IsTrue(c.Images[0].Url == _baseUrl + @"logo.jpg");
-            //Assert.IsTrue(c.LinkedResources.Count > 0);
-            //Assert.IsFalse(c.Content.Contains(".jpg"));
-            //Assert.IsTrue(c.Content.Contains("cid:"));
-
-        }
-
+       
 
     }
 }

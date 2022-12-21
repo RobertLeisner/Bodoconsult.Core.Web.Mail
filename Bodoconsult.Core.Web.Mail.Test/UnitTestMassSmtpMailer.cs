@@ -1,7 +1,4 @@
-﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
-
-
-using System;
+﻿using System;
 using System.IO;
 using Bodoconsult.Core.Web.Mail.Test.Helpers;
 using NUnit.Framework;
