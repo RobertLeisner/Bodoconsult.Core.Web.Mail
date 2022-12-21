@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -7,6 +10,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Graph;
+using LinkedResource = System.Net.Mail.LinkedResource;
 
 namespace Bodoconsult.Core.Web.Mail
 {
@@ -30,7 +35,7 @@ namespace Bodoconsult.Core.Web.Mail
 
         public string DocUrl
         {
-            get { return _docUrl; }
+            get => _docUrl;
             set
             {
                 _docUrl = value;
@@ -160,12 +165,21 @@ namespace Bodoconsult.Core.Web.Mail
             foreach (Match m in matches)
             {
                 var url = m.Groups["Url"].Value;
-                Uri testUri = null;
 
-                if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out testUri)) continue;
-                if (Images.Any(s => s.OriginalUrl == testUri.ToString())) continue;
+                if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out var testUri))
+                {
+                    continue;
+                }
 
-                var i = new ImageMetaData { OriginalUrl = testUri.ToString() };
+                if (Images.Any(s => s.OriginalUrl == testUri.ToString()))
+                {
+                    continue;
+                }
+
+                var i = new ImageMetaData
+                {
+                    OriginalUrl = testUri.ToString()
+                };
 
                 if (i.OriginalUrl.Contains(@":\"))
                 {
@@ -198,7 +212,7 @@ namespace Bodoconsult.Core.Web.Mail
         }
 
         /// <summary>
-        /// Load the images as linked ressources (for inclusion in the mail)
+        /// Load the images as linked ressources (for inclusion in an SMTP mail)
         /// </summary>
         public void GetLinkedRessources()
         {
@@ -252,11 +266,44 @@ namespace Bodoconsult.Core.Web.Mail
                 //AlternateView plainView = AlternateView.CreateAlternateViewFromString(txtBody, null, "text/plain"); 
 
             var htmlView = AlternateView.CreateAlternateViewFromString(Content, null, "text/html");
-            foreach (var linkedResource in LinkedResources) htmlView.LinkedResources.Add(linkedResource);
+            foreach (var linkedResource in LinkedResources)
+            {
+                htmlView.LinkedResources.Add(linkedResource);
+            }
 
             msg.AlternateViews.Add(htmlView);
 
         }
 
+
+        /// <summary>
+        /// Store all data from the converter to the mail message
+        /// </summary>
+        /// <param name="msg">Mail message object</param>
+        public void SaveToMail(ref Message msg)
+        {
+            msg.Body = new ItemBody
+            {
+                Content = Content,
+                ContentType = BodyType.Html
+            };
+
+            msg.HasAttachments = true;
+            msg.Attachments = new MessageAttachmentsCollectionPage();
+
+            foreach (var image in Images)
+            {
+                var att = new FileAttachment
+                {
+                    //ODataType = "#microsoft.graph.fileAttachment",
+                    ContentBytes = image.ContentBytes,
+                    ContentType = image.MimeType,
+                    ContentId = image.ContentId,
+                    Name = image.Name
+                };
+
+                msg.Attachments.Add(att);
+            }
+        }
     }
 }
