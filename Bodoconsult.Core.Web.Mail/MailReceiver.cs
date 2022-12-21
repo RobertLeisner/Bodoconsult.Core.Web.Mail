@@ -1,4 +1,7 @@
-﻿namespace Bodoconsult.Core.Web.Mail
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
+namespace Bodoconsult.Core.Web.Mail
 {
     /// <summary>
     /// Class with mail receiver data
